@@ -16,6 +16,7 @@
 #include "wpa_supplicant_i.h"
 #include "driver_i.h"
 #include "p2p_supplicant.h"
+#include <systemd/sd-daemon.h>
 
 
 static void usage(void)
@@ -383,6 +384,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	sd_notify( 0, "READY=1");
+	
 #ifdef CONFIG_MATCH_IFACE
 	if (exitcode == 0)
 		exitcode = wpa_supplicant_init_match(global);
